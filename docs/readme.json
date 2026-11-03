@@ -1,0 +1,83 @@
+{
+  "nombre": "HISTIA",
+  "repo": "histia",
+  "cabecera": ["PRIVACIDAD SIN SERVIDOR", "OCULTA, CIFRA Y LIMPIA", "● v1.0 · PÚBLICO"],
+  "portada": {"img": "docs/histia-ocultar.jpg", "alt": "Histia con un mensaje cifrado escondido dentro de una imagen"},
+  "enlaces": [["▶ ABRIR HISTIA", "https://eyverqt.github.io/histia/"], ["POR QUÉ HISTIA", "#por-que"], ["PORTFOLIO", "https://eyverqt.netlify.app"]],
+  "lema": "(NADA SALE DE TU NAVEGADOR)",
+  "intro": [
+    "Esconde mensajes y archivos dentro de una imagen o un audio.",
+    "Comparte notas cifradas con un enlace, sin servidor de por medio.",
+    "Limpia y une tus bóvedas de Bitwarden y busca claves filtradas.",
+    "Sin instalar, sin cuenta y sin rastreadores.",
+    "Una vez abierta funciona sin conexión."
+  ],
+  "secciones": [
+    {"titulo": "QUÉ HACE", "par": "(TRES HERRAMIENTAS, UN SOLO SITIO)", "contenido": [
+      {"cols": ["OCULTAR", "TEXTO O ARCHIVOS DENTRO DE PNG, JPG, WEBP, WAV O MP3"], "anchos": [10]},
+      {"cols": ["NOTA", "UN ENLACE QUE LLEVA LA NOTA CIFRADA DENTRO"], "anchos": [10]},
+      {"cols": ["BÓVEDA", "DUPLICADOS, CONFLICTOS, REPETIDAS, DÉBILES Y FILTRADAS"], "anchos": [10]},
+      "",
+      {"b": "CÓMO OCULTA:"},
+      "",
+      "SECRETO",
+      {"cols": ["→ COMPRIMIR", "(DEFLATE: CABE MÁS)"], "anchos": [14]},
+      {"cols": ["→ CIFRAR", "(AES-256-GCM, PBKDF2 CON 600.000 ITERACIONES)"], "anchos": [14]},
+      {"cols": ["→ REPARTIR", "(BITS AL AZAR SEGÚN TU CONTRASEÑA)"], "anchos": [14]},
+      {"cols": ["→ GUARDAR", "(PNG O WAV, SIN PÉRDIDA)"], "anchos": [14]}
+    ]},
+    {"titulo": "NOVEDADES", "par": "(v1.0: REESCRITA DESDE CERO)", "contenido": [
+      {"b": "2026-11 · HISTIA 1.0"},
+      "",
+      "Nace de la idea de Pixel Oculto, Llavero y Nota Cifrada, sin su código:",
+      "sin React, sin PHP y sin build. HTML, CSS y JavaScript que se pueden leer.",
+      "",
+      {"cols": ["● NOTA SIN SERVIDOR", "(ANTES HACÍA FALTA PHP)"], "anchos": [23]},
+      {"cols": ["● SIN MARCA", "(LO OCULTO NO LLEVA FIRMA RECONOCIBLE)"], "anchos": [23]},
+      {"cols": ["● FILTRACIONES", "(HAVE I BEEN PWNED, SOLO SI LO PIDES)"], "anchos": [23]},
+      {"cols": ["● CSP ESTRICTA", "(EL NAVEGADOR BLOQUEA CUALQUIER ENVÍO)"], "anchos": [23]}
+    ]},
+    {"titulo": "POR QUÉ", "par": "(FRENTE A LO QUE YA EXISTE)", "ancla": "por-que", "contenido": [
+      {"cols": ["PRIVATEBIN, 0BIN", "ALGUIEN MANTIENE UN SERVIDOR"], "anchos": [20]},
+      {"cols": ["BITWARDEN SEND", "NECESITA CUENTA; PASA POR SUS SERVIDORES"], "anchos": [20]},
+      {"cols": ["BITWARDEN", "SIN LIMPIEZA AUTOMÁTICA DE DUPLICADOS"], "anchos": [20]},
+      {"cols": ["SCRIPTS DE GITHUB", "HAY QUE INSTALAR PYTHON Y CONFIARLES TUS CLAVES"], "anchos": [20]},
+      {"cols": ["WEBS DE ESTEGO", "MUCHAS SOLO TEXTO, CON LOS BITS EN ORDEN"], "anchos": [20]},
+      "",
+      {"b": "LO MEDIDO (PORTÁTIL I5-1035G1, SIN GPU):"},
+      "",
+      {"cols": ["1200×800 + TEXTO", "0,7 S"], "anchos": [20]},
+      {"cols": ["12 MP + 1 MB", "9,3 S"], "anchos": [20]},
+      {"cols": ["PETICIONES EXTERNAS", "0 AL ABRIR UNA NOTA"], "anchos": [20]},
+      "",
+      {"b": "SUS LÍMITES, SIN ADORNOS:"},
+      "",
+      "● Un análisis forense serio puede notar que una imagen está muy llena.",
+      "  Usa menos del 25 % de la capacidad.",
+      "● Sin servidor una nota no se puede borrar: quien tenga el enlace la abre.",
+      "  La caducidad solo avisa, dentro de esta app.",
+      "● WhatsApp e Instagram recomprimen las imágenes y destruyen el secreto.",
+      "  Envíalas como archivo.",
+      "● Nadie ha auditado este código. Para vidas en juego, usa otra cosa."
+    ]},
+    {"titulo": "USAR", "par": "(SIN INSTALAR NADA)", "contenido": [
+      {"cols": ["ABRE", "EYVERQT.GITHUB.IO/HISTIA"], "anchos": [14]},
+      {"cols": ["OCULTAR", "SUELTA UNA IMAGEN, ESCRIBE Y PON CONTRASEÑA"], "anchos": [14]},
+      {"cols": ["REVELAR", "SUELTA LA IMAGEN Y ESCRIBE LA CONTRASEÑA"], "anchos": [14]},
+      {"cols": ["NOTA", "ESCRIBE, CREA EL ENLACE Y PÁSALO"], "anchos": [14]},
+      {"cols": ["BÓVEDA", "BITWARDEN → EXPORTAR → JSON → SUELTA EL ARCHIVO"], "anchos": [14]},
+      "",
+      "Para instalarla: en Chrome o Edge, botón Instalar de la barra de direcciones",
+      "Para tu propio sitio: copia la carpeta y cambia <base href> en index.html."
+    ]},
+    {"titulo": "GALERÍA", "par": "(NOTA Y BÓVEDA)", "contenido": [
+      {"imagenes": [["docs/histia-nota.jpg", "Nota cifrada convertida en un enlace"], ["docs/histia-boveda.jpg", "Informe de una bóveda de ejemplo con contraseñas filtradas"]]},
+      {"detalles": "ESTRUCTURA DEL PROYECTO", "codigo": "text", "texto": "histia/\n├── index.html · 404.html  # La página y las rutas limpias en GitHub Pages\n├── cripto.js              # AES-GCM, PBKDF2, notas y Have I Been Pwned\n├── oculto.js              # Esteganografía en imagen y WAV\n├── boveda.js              # Unir y limpiar exportaciones de Bitwarden\n├── app.js · app.css       # Interfaz con el estilo eyverqt\n├── sw.js                  # Sin conexión\n└── scripts/estrellas.py   # La gráfica de estrellas (GitHub Actions)"}
+    ]},
+    {"titulo": "LICENCIA", "par": "(CÓDIGO MIT, CONTENIDO © EYVER GÓMEZ)", "contenido": [
+      "Código bajo MIT. Contenido y diseño © Eyver Gómez.",
+      "Sin analíticas, sin cookies y sin dependencias externas."
+    ]}
+  ],
+  "estrellas": true
+}

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/histia/">
+<title>Histia</title>
+<meta name="description" content="Histia — oculta archivos en imágenes y audio, comparte notas cifradas sin servidor y limpia tu bóveda de Bitwarden. Todo dentro de tu navegador.">
+<meta name="theme-color" content="#ffffff">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' blob: data:; media-src blob:; manifest-src 'self'; worker-src 'self'; connect-src 'self' https://api.pwnedpasswords.com; base-uri 'self'; form-action 'none'">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icono.svg" type="image/svg+xml">
+<link rel="stylesheet" href="eyverqt.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<header class="header page">
+  <a class="logo" href="ocultar" data-ir="ocultar">Histia<br><span id="logoSub">Ocultar</span></a>
+  <div class="meta"><span class="muted">Sin servidor</span><span class="hot" id="live">En tu navegador</span></div>
+</header>
+
+<nav class="nav page sub" id="tabs" aria-label="Secciones">
+  <a href="ocultar" data-ir="ocultar">Ocultar</a>
+  <a href="nota" data-ir="nota">Nota</a>
+  <a href="boveda" data-ir="boveda">Bóveda</a>
+  <a href="por-que" data-ir="por-que">Por qué</a>
+</nav>
+<div class="bar page-bar" id="barTop"><i></i></div>
+
+<main class="wrap">
+
+  <section class="pagina" data-p="ocultar">
+    <div class="cols">
+      <div>
+        <section class="step">
+          <div class="label up"><b>01 · Portador</b><span class="muted" id="portInfo">PNG · JPG · WEBP · WAV · MP3</span></div>
+          <div class="opt"><span>Acción</span><div class="seg" id="segAccion"><button type="button" data-v="ocultar" aria-pressed="true">Ocultar</button><button type="button" data-v="revelar" aria-pressed="false">Revelar</button></div></div>
+          <button class="drop" type="button" id="dropPort"><span class="display drop-t" id="dropT">Suelta una imagen o audio</span><small id="dropS">Dentro se esconde lo que quieras. Nada se sube</small></button>
+          <input type="file" id="filePort" accept="image/*,audio/*,.wav,.mp3" hidden>
+        </section>
+        <section class="step" id="pasoSecreto">
+          <div class="label up"><b>02 · Secreto</b><span class="muted" id="secInfo"></span></div>
+          <div class="opt"><span>Qué esconder</span><div class="seg" id="segSecreto"><button type="button" data-v="texto" aria-pressed="true">Texto</button><button type="button" data-v="archivo" aria-pressed="false">Archivo</button></div></div>
+          <textarea id="secTexto" rows="5" spellcheck="false" placeholder="Escribe el mensaje secreto"></textarea>
+          <div id="secArchivo" hidden><div class="acts"><button class="btn ghost-btn" type="button" id="btnSec">Elegir archivo</button></div><input type="file" id="fileSec" hidden></div>
+        </section>
+        <section class="step">
+          <div class="label up"><b id="pasoClave">03 · Contraseña</b><span class="muted" id="fuerza"></span></div>
+          <label class="field"><input id="clave" type="password" autocomplete="new-password" placeholder="Sin ella nadie podrá leerlo. No se puede recuperar"></label>
+          <div class="acts"><button class="btn" type="button" id="btnOcultar">Ocultar</button></div>
+        </section>
+      </div>
+      <div class="pegado">
+        <div class="stats mini"><div><b id="stCap">—</b>Capacidad</div><div><b id="stSec">—</b>A ocultar</div><div><b id="stUso">—</b>De uso</div></div>
+        <section class="step">
+          <div class="label up"><b>Resultado</b><span class="muted" id="resInfo"></span></div>
+          <div id="resultado"><div class="ghost vacio-g">Histia<small>AES-256-GCM y bits repartidos al azar según tu contraseña</small></div></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="pagina" data-p="nota" hidden>
+    <div class="cols">
+      <div>
+        <section class="step" id="notaCrear">
+          <div class="label up"><b>01 · Nota secreta</b><span class="muted" id="notaInfo">Viaja cifrada dentro del enlace</span></div>
+          <textarea id="notaTexto" rows="8" spellcheck="false" placeholder="Contraseñas, datos, lo que no quieras dejar en un chat"></textarea>
+          <label class="field"><input id="notaClave" type="password" autocomplete="new-password" placeholder="Contraseña opcional, para pasarla por otra vía"></label>
+          <div class="opt"><span>Avisar de que caducó</span><div class="seg" id="segCad"><button type="button" data-v="0" aria-pressed="true">Nunca</button><button type="button" data-v="1" aria-pressed="false">1 día</button><button type="button" data-v="7" aria-pressed="false">7 días</button></div></div>
+          <div class="acts"><button class="btn" type="button" id="btnNota">Crear enlace</button></div>
+        </section>
+      </div>
+      <div class="pegado">
+        <section class="step">
+          <div class="label up"><b id="notaTitulo">Enlace</b><span class="muted" id="notaTam"></span></div>
+          <div id="notaRes"><div class="ghost vacio-g">Nota<small>Sin servidor: no hay ninguna base de datos que hackear</small></div></div>
+          <p class="nota muted up">Sin servidor no se puede borrar a distancia: quien tenga el enlace puede abrirlo siempre. La caducidad solo avisa y se aplica en esta app.</p>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="pagina" data-p="boveda" hidden>
+    <div class="stats" id="bovStats"><div><b id="bsN">0</b>Entradas</div><div><b id="bsD">0</b>Sobran</div><div><b id="bsR">0</b><span>Contraseñas repetidas</span></div></div>
+    <div class="cols">
+      <div>
+        <section class="step">
+          <div class="label up"><b>01 · Exportaciones de Bitwarden</b><span class="muted">JSON sin cifrar. Una o varias</span></div>
+          <button class="drop" type="button" id="dropBov"><span class="display drop-t">Suelta tu bóveda</span><small>Se queda en memoria: al cerrar la pestaña, desaparece</small></button>
+          <input type="file" id="fileBov" accept=".json,application/json" multiple hidden>
+          <div class="opt"><span>Archivos</span><span id="bovArch" class="muted">Ninguno</span></div>
+        </section>
+        <section class="step">
+          <div class="label up"><b>02 · Limpiar</b></div>
+          <div class="acts"><button class="btn" type="button" id="btnExactos" disabled>Quitar duplicados exactos</button><button class="btn ghost-btn" type="button" id="btnRecientes" disabled>Resolver conflictos: la más reciente</button></div>
+          <div class="acts"><button class="btn ghost-btn" type="button" id="btnFiltradas" disabled>Buscar filtraciones</button><button class="btn ghost-btn" type="button" id="btnDeshacer" disabled>Deshacer</button><button class="btn ghost-btn" type="button" id="btnExportar" disabled>Exportar JSON</button></div>
+          <p class="nota muted up">Filtraciones: envía a Have I Been Pwned solo los 5 primeros caracteres del hash, nunca la contraseña. El JSON exportado va sin cifrar: bórralo tras importarlo.</p>
+        </section>
+        <section class="step">
+          <div class="label up"><b>03 · Generador</b><span class="muted" id="genBits"></span></div>
+          <div class="opt"><span>Largo</span><div class="seg" id="segLargo"><button type="button" data-v="16" aria-pressed="false">16</button><button type="button" data-v="20" aria-pressed="true">20</button><button type="button" data-v="32" aria-pressed="false">32</button></div></div>
+          <div class="linkbox"><label class="field"><input id="genOut" readonly spellcheck="false"></label><button class="btn ghost-btn" type="button" id="btnGen">Otra</button><button class="btn ghost-btn" type="button" id="btnGenCop">Copiar</button></div>
+        </section>
+      </div>
+      <div class="pegado">
+        <section class="step">
+          <div class="label up"><b>Informe</b><span class="muted" id="infHint"></span></div>
+          <div class="opt"><span>Ver</span><div class="seg" id="segInf"><button type="button" data-v="duplicados" aria-pressed="true">Duplicados</button><button type="button" data-v="conflictos" aria-pressed="false">Conflictos</button><button type="button" data-v="repetidas" aria-pressed="false">Repetidas</button><button type="button" data-v="debiles" aria-pressed="false">Débiles</button><button type="button" data-v="http" aria-pressed="false">Sin HTTPS</button><button type="button" data-v="filtradas" aria-pressed="false">Filtradas</button></div></div>
+          <ul class="informe" id="informe"></ul>
+          <div class="ghost vacio-g" id="infVacio">Bóveda<small>Bitwarden → Herramientas → Exportar → JSON</small></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="pagina angosta" data-p="por-que" hidden>
+    <section class="step"><div class="label up"><b>Por qué Histia</b><span class="muted">Frente a lo que ya existe</span></div><ul class="list vs" id="vs"></ul></section>
+    <section class="step"><div class="label up"><b>Cómo protege</b></div><ul class="list vs" id="comoP"></ul></section>
+  </section>
+</main>
+
+<div class="marquee" aria-hidden="true"><div><span>Histia</span><span>Oculta</span><span>Cifra</span><span>Limpia</span><span>Histia</span><span>Oculta</span><span>Cifra</span><span>Limpia</span></div></div>
+<footer class="footer">
+  <a href="https://eyverqt.netlify.app" target="_blank" rel="noopener">Portfolio</a>
+  <a href="https://github.com/eyverqt/histia" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://cal.com/eyverqt/15min" target="_blank" rel="noopener">Agendar llamada</a>
+  <a href="mailto:eyverqt@gmail.com">Email</a>
+</footer>
+<div class="toast" id="toast" hidden></div>
+<script src="cripto.js"></script>
+<script src="oculto.js"></script>
+<script src="boveda.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
